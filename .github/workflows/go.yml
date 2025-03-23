@@ -56,4 +56,5 @@ jobs:
             cd /root/myapp
             wget -O docker-compose.yml https://raw.githubusercontent.com/HanadAbd/digitalOcean/main/docker-compose.yml
             docker-compose pull
+            docker-compose down
             docker-compose up -d

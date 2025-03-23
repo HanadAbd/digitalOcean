@@ -41,7 +41,9 @@ func main() {
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT);
 					  INSERT INTO users (name) VALUES
 					   ('Alice'), ('Bob'), ('Charlie'),
-					   ('David'), ('Eve'), ('Frank') ON CONFLICT DO NOTHING;
+					   ('David'), ('Eve'), ('Frank'),
+					   ('Grace'), ('Heidi'), ('Ivan'),  
+					   ON CONFLICT DO NOTHING;
 					  `)
 	if err != nil {
 		log.Fatal(err)
