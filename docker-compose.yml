@@ -1,5 +1,4 @@
 services:
-
   db:
     image: postgres:latest
     environment:
@@ -8,13 +7,13 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: testdb
-
-    volumes: []  # No volume mounting ensures the data is ephemeral
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
   app:
-    build: .
+    image: hanadabd/myapp:latest
     ports:
       - "8080:8080"
     depends_on:
@@ -25,3 +24,4 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: testdb
+    restart: always

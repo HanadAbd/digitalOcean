@@ -26,7 +26,6 @@ func main() {
 	dbPassword := os.Getenv("POSTGRES_PASSWORD")
 	dbName := os.Getenv("POSTGRES_DB")
 
-	// Wait for DB to be ready
 	time.Sleep(5 * time.Second)
 
 	// Connect to database
