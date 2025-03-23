@@ -42,8 +42,7 @@ func main() {
 					  INSERT INTO users (name) VALUES
 					   ('Alice'), ('Bob'), ('Charlie'),
 					   ('David'), ('Eve'), ('Frank'),
-					   ('Grace'), ('Heidi'), ('Ivan'),  
-					   ON CONFLICT DO NOTHING;
+					   ('Grace'), ('Heidi'), ('Ivan');
 					  `)
 	if err != nil {
 		log.Fatal(err)
