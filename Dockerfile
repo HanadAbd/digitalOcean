@@ -2,7 +2,7 @@
 FROM golang:1.23.2-alpine AS builder
 WORKDIR /app
 COPY go.mod go.sum ./
-RUN go mod download
+RUN go mod tidy
 COPY . .
 RUN go build -o myapp
 
@@ -10,7 +10,6 @@ RUN go build -o myapp
 FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/myapp .
-# Copy templates directory
 COPY --from=builder /app/templates ./templates
 EXPOSE 8080
 CMD ["./myapp"]

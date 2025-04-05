@@ -20,15 +20,14 @@ type User struct {
 }
 
 func main() {
-	dbHost := os.Getenv("POSTGRES_HOST")
-	dbPort := os.Getenv("POSTGRES_PORT")
-	dbUser := os.Getenv("POSTGRES_USER")
-	dbPassword := os.Getenv("POSTGRES_PASSWORD")
-	dbName := os.Getenv("POSTGRES_DB")
+	dbHost := os.Getenv("DATABASE_HOST")
+	dbPort := os.Getenv("DATABASE_PORT")
+	dbUser := os.Getenv("DATABASE_USER")
+	dbPassword := os.Getenv("DATABASE_PASSWORD")
+	dbName := os.Getenv("DATABASE_NAME")
 
 	time.Sleep(5 * time.Second)
 
-	// Connect to database
 	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbPort, dbUser, dbPassword, dbName)
 	db, err := sql.Open("postgres", psqlInfo)
@@ -37,7 +36,6 @@ func main() {
 	}
 	defer db.Close()
 
-	// Create table & insert fake data
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT);
 					  INSERT INTO users (name) VALUES
 					   ('Alice'), ('Bob'), ('Charlie'),
@@ -48,10 +46,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Parse template
 	tmpl = template.Must(template.ParseFiles("templates/index.html"))
 
-	// Serve HTTP
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		rows, err := db.Query("SELECT id, name FROM users")
 		if err != nil {
